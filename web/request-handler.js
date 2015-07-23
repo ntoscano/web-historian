@@ -14,12 +14,21 @@ exports.handleRequest = function (req, res) {
         if(error){
           return console.log(error);
         }
+        res.writeHead(200);
         res.write(data);
         res.end();
       });
     }else {
-      archive.isUrlInList(url, function(is){
-        if (is) {
+      archive.isUrlArchived(url, function(exists){
+        if (exists) {
+          fs.readFile(archive.paths.archivedSites + path, function(error, data){
+            if(error){
+              return console.log(error);
+            }
+            res.writeHead(200);
+            res.write(data);
+            res.end();
+          })
 
         } else {
           res.writeHead(404);
