@@ -50,6 +50,8 @@ exports.handleRequest = function (req, res) {
         res.end();
       });
     }
+  } else {
+    res.writeHead(404);
+    res.end();
   }
-  //res.end(archive.paths.list);
 };

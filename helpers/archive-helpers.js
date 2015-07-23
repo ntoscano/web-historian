@@ -32,7 +32,6 @@ exports.readListOfUrls = function(callback){
       return console.log(error);
     }
     var urls = data.split('\n');
-    // console.log(urls);
     callback(urls);
   });
 };
@@ -45,7 +44,6 @@ exports.isUrlInList = function(url, callback){
 };
 
 exports.addUrlToList = function(url, callback){
-  //append url to url list 
   fs.appendFile(exports.paths.list, url + '\n', function(error){
     if(error){
      return console.log(error);
@@ -55,7 +53,6 @@ exports.addUrlToList = function(url, callback){
 };
 
 exports.isUrlArchived = function(url, callback){
-  //if url in archive list, set 'exists' as boolean
   fs.readdir(exports.paths.archivedSites, function(error, files){
     if(error){
       return console.log(error);
@@ -67,14 +64,12 @@ exports.isUrlArchived = function(url, callback){
 
 exports.downloadUrls = function(urlArray){
   urlArray.forEach(function(url){
-    // console.log('-------------------', url);
     httpRequest.get('http://'+url, function (err, res) {
       if (err) {
         console.error(err);
         return;
       }
       var data = res.buffer.toString();
-      // console.log('+++++++++++++++++++++++++', data);
 
       //res.code, res.headers
 
